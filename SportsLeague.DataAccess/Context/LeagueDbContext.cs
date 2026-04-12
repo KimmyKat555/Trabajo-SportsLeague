@@ -14,6 +14,7 @@ public class LeagueDbContext : DbContext
     public DbSet<Referee> Referees => Set<Referee>();              // NUEVO
     public DbSet<Tournament> Tournaments => Set<Tournament>();    // NUEVO
     public DbSet<TournamentTeam> TournamentTeams => Set<TournamentTeam>(); // NUEVO
+    
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
