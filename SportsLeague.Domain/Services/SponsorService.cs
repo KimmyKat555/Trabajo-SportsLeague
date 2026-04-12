@@ -38,7 +38,7 @@ namespace SportsLeague.Domain.Services
 
         public async Task<Sponsor> CreateAsync(Sponsor sponsor)
         {
-            // Validación de nombre único usando el FindAsync que agregaste al Repo
+
             var existingSponsors = await _sponsorRepository.FindAsync(s => s.Name.ToLower() == sponsor.Name.ToLower());
 
             if (existingSponsors.Any())
@@ -49,7 +49,6 @@ namespace SportsLeague.Domain.Services
 
             _logger.LogInformation("Creating sponsor: {Name}", sponsor.Name);
 
-            // IMPORTANTE: Usamos CreateAsync porque así lo definiste en tu ISponsorRepository
             return await _sponsorRepository.CreateAsync(sponsor);
         }
 
