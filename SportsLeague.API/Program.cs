@@ -11,7 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<LeagueDbContext>(options =>
     options.UseSqlServer(
         builder.Configuration.GetConnectionString("DefaultConnection")));
-
+// Repository
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 builder.Services.AddScoped<ITeamRepository, TeamRepository>();
 builder.Services.AddScoped<IPlayerRepository, PlayerRepository>();
@@ -19,6 +19,7 @@ builder.Services.AddScoped<IRefereeRepository, RefereeRepository>();
 builder.Services.AddScoped<ITournamentRepository, TournamentRepository>();     
 builder.Services.AddScoped<ITournamentTeamRepository, TournamentTeamRepository>();
 builder.Services.AddScoped<ISponsorRepository, SponsorRepository>();
+builder.Services.AddScoped<IMatchRepository, MatchRepository>();
 
 // Services 
 builder.Services.AddScoped<ITeamService, TeamService>();
@@ -26,6 +27,7 @@ builder.Services.AddScoped<IPlayerService, PlayerService>();
 builder.Services.AddScoped<IRefereeService, RefereeService>();           
 builder.Services.AddScoped<ITournamentService, TournamentService>();
 builder.Services.AddScoped<ISponsorService, SponsorService>();
+builder.Services.AddScoped<IMatchService, MatchService>();
 
 // AutoMapper 
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
