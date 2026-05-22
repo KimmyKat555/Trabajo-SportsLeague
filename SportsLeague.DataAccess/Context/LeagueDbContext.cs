@@ -20,7 +20,7 @@ public class LeagueDbContext : DbContext
     public DbSet<MatchResult> MatchResults => Set<MatchResult>();
     public DbSet<Goal> Goals => Set<Goal>();
     public DbSet<Card> Cards => Set<Card>();
-    public DbSet<MatchLineup> MatchLineups { get; set; }
+    public DbSet<MatchLineup> MatchLineups => Set<MatchLineup>();
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
