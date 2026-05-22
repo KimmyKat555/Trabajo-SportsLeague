@@ -20,10 +20,12 @@ public class LeagueDbContext : DbContext
     public DbSet<MatchResult> MatchResults => Set<MatchResult>();
     public DbSet<Goal> Goals => Set<Goal>();
     public DbSet<Card> Cards => Set<Card>();
-
+    public DbSet<MatchLineup> MatchLineups { get; set; }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
+
+
 
         // ── Team Configuration ──
         modelBuilder.Entity<Team>(entity =>
@@ -232,6 +234,7 @@ public class LeagueDbContext : DbContext
                 // Índice único en MatchId garantiza relación 1:1
                 entity.HasIndex(mr => mr.MatchId).IsUnique();
             });
+
             // ── Goal Configuration ──
             modelBuilder.Entity<Goal>(entity =>
             {
@@ -269,6 +272,23 @@ public class LeagueDbContext : DbContext
                       .WithMany(p => p.Cards)
                       .HasForeignKey(c => c.PlayerId)
                       .OnDelete(DeleteBehavior.Restrict);
+            });
+            // ── MatchLineup Configuration ──
+            modelBuilder.Entity<MatchLineup>(entity =>
+            {
+                entity.HasKey(ml => ml.Id);
+                entity.Property(ml => ml.Position).IsRequired().HasMaxLength(50);
+
+                entity.HasOne(ml => ml.Match)
+                      .WithMany() // Ajusta según entidad Match
+                      .HasForeignKey(ml => ml.MatchId);
+
+                entity.HasOne(ml => ml.Player)
+                      .WithMany() // Ajusta según entidad Player
+                      .HasForeignKey(ml => ml.PlayerId);
+
+                // Índice único compuesto: un jugador solo puede estar una vez en un partido
+                entity.HasIndex(ml => new { ml.MatchId, ml.PlayerId }).IsUnique();
             });
         });
     }

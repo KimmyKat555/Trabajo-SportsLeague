@@ -7,7 +7,5 @@ namespace SportsLeague.Domain.Interfaces.Repositories
         Task<IEnumerable<MatchLineup>> GetByMatchAsync(int matchId);
         Task<IEnumerable<MatchLineup>> GetByTeamAsync(int matchId, int teamId);
         Task<int> CountStartersAsync(int matchId, int teamId);
-        Task<MatchLineup> AddAsync(MatchLineup lineup);
-        Task DeleteAsync(MatchLineup lineup);
     }
 }
